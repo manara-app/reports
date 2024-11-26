@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>report</title>
+    <script src="https://www.gstatic.com/firebasejs/8.3.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.3.1/firebase-database.js"></script>
+    <script src="js/firebase.js"></script>
+    <script src="jquery.js"></script>
+    <script src="js/swer.js"></script>
+
+    <link rel="stylesheet" href="style.css">
+
+</head>
+<style>
+    @font-face {
+        font-family: quran;
+        src: url(fonts/Al-QuranAlKareem.ttf);
+    }
+    @font-face {
+        font-family: normal;
+        src: url(fonts/NotoKufiArabic-Light.ttf);
+    }
+    td{
+        padding: 2px;
+        font-size: 2.5vw;
+        font-family: quran;
+        text-align: center;
+    }
+    .date_cell{
+        font-family: normal !important;
+    }
+    .dark{
+        background-color: #eee;
+    }
+    .liteBtn{
+        font-size: 15px;
+        direction: rtl;text-align: right;padding: 5px; margin: 5px; 
+        color: var(--mainColor); font-weight: bold; background-color: #eee; border-radius: 15px;
+    }
+    #month_name{
+        font-family: quran;
+    }
+    .toolBar{
+        text-align: right;
+        direction: rtl;
+        background-color: #111;
+        color: #fff;
+        padding-right: 15px;
+        border: 0px;
+        width: 100%;
+    }
+    .toolBar select{direction: rtl;background: #000; color: #fff; border: none; border-bottom: 1px #fff solid; border-radius: 0px;}
+</style>
+<body>
+    <center>
+        <div>
+            <table class="toolBar">
+                <tr>
+                    <td>
+                        اختر المحفظ
+                        <select id="lordList" onchange="show_hide_tr(this.value)">
+                            <option value="all">الكل</option>
+                        </select>
+                        <img height="25px" src="img/print.png" onclick="$('.toolBar').hide();print();$('.toolBar').show()">
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <h1 contenteditable="true" style="margin: 20px; font-family: quran; font-size: 25px; direction: rtl;">
+            منارة خالد بن الوليد لتحفيظ القرءان والسنة النبوية <br>
+            كشف الحفظ والمراجعة لشهر [اسم الشهر] لسنة 2024
+        </h1>
+        <h2 id="lord" style="font-family: quran;"></h2>
+        <div id="content">
+            <table cellspacing="3" style="width: 95%; text-align: center; text-align: right; direction: rtl;">
+                <thead>
+                    <tr style="background: #555; color: #fff; font-weight: bold;">
+                        <td>م</td>
+                        <td>الاسم</td>
+                        <td>الحفظ</td>
+                        <td>المراجعة</td>
+                        <td>اخر تعديل</td>
+                    </tr>
+                </thead>
+                <tbody id="main_table">
+                    
+                </tbody>
+            </table>
+        </div>
+        <a id="link" style="display: none;">
+
+        </a>
+    </center>
+    <div class="watermark">
+        <img src="img/logo_icon_modern2.png" style="width: 40px; margin: 0px; filter: brightness(0.5);">
+        بواسطة تطبيق منارة
+    </div>
+</body>
+</html>
+
+<script src="js/script.js"></script>
+<script>
+    sort_by_swer();
+    var dark = 'dark';
+    var _no = 0;
+    for (let x = 0; x < Object.keys(students).length; x++) {
+        console.log(students[Object.keys(students)[x]])
+        const n = Object.keys(students)[x];
+        if(dark == 'dark'){dark = ''}else{dark = 'dark'};
+        document.getElementById('main_table').innerHTML += '<tr class="'+dark+'"><td>'+(_no+1)+'</td><td>'+n+'</td><td>'+swer[Number(students[n].swer1)]+'</td><td>'+students[n].date1.split(' ')[0]+'</td><td>'+students[n].swer2+'</td><td>'+students[n].date2.split(' ')[0]+'</td></tr>';
+        _no += 1;
+    }
+    function upload_swer_report(){
+        var html = '<center><h1>'+$('#title_report').val()+'</h1></center>' + document.getElementById('content').innerHTML;
+        var code = parseInt(Math.random() * 1000000);
+        database.ref('reports/'+code).set(html).then(snap => {
+            $('#link').show();
+            $('#link').html('رابط المستند');
+            document.getElementById('link').href = 'https://qasemrehiel.github.io/manaraApp/?code='+code;
+        });
+    }
+    var lords = [];
+    function all_students(){
+        //var selected_lord = prompt('اسم المحفظ','القاسم سالم');
+        //document.getElementById("month_name").innerHTML = '[اسم الشهر]';
+        //var _code = prompt('رمز التسجيل');
+        const urlParams = new URLSearchParams(window.location.search);
+        var _code = Number(urlParams.get('code'))/5;
+
+        database.ref(_code+'/students').get().then(snap => {
+        document.getElementById('main_table').innerHTML = '';
+        students = snap.val();
+        sort_by_swer();
+        var _no = 1;
+        //$('#lord').html(selected_lord);
+        for (let x = 0; x < Object.keys(students).length; x++) {
+            //if(selected_lord == students[Object.keys(students)[x]].lord){
+            const n = Object.keys(students)[x];
+            var my_lord = students[n].lord.replaceAll(' ','_');
+            if(!lords.includes(students[n].lord)){
+                lords.push(students[n].lord);
+                document.getElementById('lordList').innerHTML += '<option value="'+my_lord+'">'+students[n].lord+'</option>';
+            }
+            if(dark == 'dark'){dark = ''}else{dark = 'dark'};
+            document.getElementById('main_table').innerHTML += '<tr class="all '+dark+' '+my_lord+'"><td>'+_no+'</td><td>'+n+'</td><td>'+swer[students[n].swer1]+'</td><td>'+students[n].swer2+'</td><td class="date_cell">'+students[n].date2.split(' ')[0]+'</td></tr>';
+            _no += 1;
+            //}
+        }
+        }).catch(err => {
+            alert(err)
+        });
+    }
+    all_students();
+    function show_hide_tr(c){
+        $('.all').hide();
+        console.log('.'+c);
+        $('.'+c).show();
+    }
+</script>

@@ -1,0 +1,218 @@
+
+@font-face {
+    font-family: general;
+    src: url(fonts/NotoKufiArabic-Light.ttf);
+}
+*{
+    font-family: general;
+    padding: 0px; margin: 0px;
+}
+input{
+    color: #555;
+    font-size: 25px;
+    text-align: right;
+    direction: rtl;
+    padding: 15px;
+    width: 80%;
+    box-sizing: border-box;
+    border: 1px #cccccc solid;
+    margin: 5px;
+    border-radius: 5px;
+}
+
+select{
+    color: #555;
+    font-size: 20px;
+    text-align: right;
+    direction: rtl;
+    padding: 10px;
+    box-sizing: border-box;
+    border: 1px #cccccc solid;
+    background-color: #fff;
+    margin: 5px;
+    border-radius: 5px;
+}
+.update{
+    color: var(--mainColor);
+    padding: 10px;
+    border-radius: 15px;
+    display: none;
+}
+.update:active{
+    background-color: #eee;
+}
+:root{
+    --mainColor: #0da566;
+    --grade: linear-gradient(215deg, #0fcba3, var(--mainColor));
+    --gray_grad: linear-gradient(215deg, #eee, #ddd);
+    --shadow : 0px 1px 3px 0px #00000065;
+}
+button{
+    background-image: linear-gradient(215deg, #0fcba3, transparent);
+    box-shadow: 0px 1px 3px 0px #00000065;
+    border-radius: 5px;
+    margin: 5px;
+    font-size: 25px;
+    padding: 15px;
+    width: 80%;
+    box-sizing: border-box;
+    background-color: var(--mainColor); color: #fff;
+    border: none;
+    transition: 0.2s;
+}
+button:active{
+    padding: 12px;
+    background-image: linear-gradient(270deg, #0fcba3, transparent);
+}
+
+.student_bar{
+    padding: 10px;
+    box-sizing: border-box;
+    color: #555;
+    font-size: 20px;
+    text-align: right;
+    direction: rtl;
+}
+.student_bar:hover{
+    color: var(--mainColor);
+}
+
+#student_page{
+    z-index: 4;
+    width: 90%; height: 90%; position: fixed; top: 5%; left: 5%; background-color: #fff;
+    box-shadow: var(--shadow);
+    display: none;
+    text-align: right;
+    direction: rtl;
+    padding: 15px; 
+    box-sizing: border-box;
+}
+#night{
+    z-index: 3;
+    width: 100%; height: 100%; position: fixed; top: 0%; left: 0%; background-color: #0000005d;
+    display: none;
+}
+
+#swer2{
+    font-size: 15px;
+}
+
+.input2{
+    color: #555;
+    font-size: 15px;
+    text-align: right;
+    direction: rtl;
+    padding: 5px;
+    width: 80%;
+    box-sizing: border-box;
+    margin: 5px;
+    border-radius: 5px;
+    border: none;
+    box-shadow: none;
+}
+.select2{
+    color: #555;
+    font-size: 15px;
+    text-align: right;
+    direction: rtl;
+    padding: 5px;
+    width: 40%;
+    box-sizing: border-box;
+    margin: 5px;
+    border-radius: 5px;
+    border: 1px #cccccc solid;
+    background-color: #fff;
+    box-shadow: none;
+}
+.btn2{
+    background-image: linear-gradient(215deg, #0fcba3, transparent);
+    box-shadow: 0px 1px 3px 0px #00000065;
+    border-radius: 5px;
+    margin: 5px;
+    font-size: 15px;
+    padding: 15px;
+    width: auto;
+    box-sizing: border-box;
+    background-color: var(--mainColor); color: #fff;
+    border: none;
+    transition: 0.2s;
+}
+a{text-decoration: none;}
+.lite_btn{
+    width: 25%;
+    font-size: 20px;
+    text-align: center;
+    display: inline-block;
+    padding: 5px; border-radius: 15px; color: var(--mainColor);
+    background-color: #eee;
+}
+.lite_btn:active{
+    background-color: var(--mainColor);
+    color: #fff;
+}
+
+.check_icons{
+    height: 40px;
+    width: 40px;
+    padding: 5px;
+    background: #eee;
+    border-radius: 10px;
+    box-sizing: border-box;
+}
+.check_icons:hover{
+    border: 2px var(--mainColor) solid;
+}
+
+.gray_background{
+    background-image: var(--gray_grad);
+    color: #555;
+    box-shadow: none;
+}
+
+.mnu_item{
+    padding: 10px;
+    margin: 5px;
+    font-size: 20px;
+    display: block;
+    text-decoration: none;
+    color: #555;
+}
+#side_mnu{
+    position: fixed;
+    z-index: 4;
+    width: 80%;
+    height: 100%;
+    background-color: #eee;
+    overflow-x: hidden;
+    transition: 0.3s;
+    right: -80%;
+    text-align: right;
+    top: 0px;
+    
+}
+
+#night{
+    background-color: #00000070;
+    position: fixed;
+    right: 0px;
+    direction: rtl;
+    top: 0px;
+    width: 100%;
+    height: 100%;
+    z-index: 3;
+    display: none;
+}
+
+.online_btn{
+    display: none;
+}
+
+.watermark{
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    font-size: 15px;
+    display: flex;
+    font-family: general;
+    color: #555;
+}
