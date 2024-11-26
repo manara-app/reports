@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+<head id="headPage">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>report</title>
@@ -180,7 +180,7 @@
         const newWindow = window.open('', '_blank');
 
         // محتوى الصفحة الجديدة
-        newWindow.document.write($('#contentPage').html());
+        newWindow.document.write($('#headPage').html()+$('#contentPage').html());
 
         // بدء عملية الطباعة
         newWindow.print();
