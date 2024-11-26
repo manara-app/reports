@@ -208,10 +208,6 @@ a{text-decoration: none;}
 }
 
 .watermark{
-    position: fixed;
-    top: 0px;
-    left: 0px;
-    font-size: 15px;
     display: flex;
     font-family: general;
     color: #555;
