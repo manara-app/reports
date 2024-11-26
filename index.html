@@ -49,13 +49,13 @@
     .toolBar{
         text-align: right;
         direction: rtl;
-        background-color: #111;
+        background-image: ;
         color: #fff;
         padding-right: 15px;
         border: 0px;
         width: 100%;
     }
-    .toolBar select{direction: rtl;background: #000; color: #fff; border: none; border-bottom: 1px #fff solid; border-radius: 0px;}
+    .toolBar select{direction: rtl; color: #fff; border: none; border-bottom: 1px #fff solid; border-radius: 0px;}
     @media print{
         .toolBar{
             display: none;
@@ -76,9 +76,11 @@
                 </tr>
             </table>
         </div>
-        <h1 contenteditable="true" style="margin: 20px; font-family: quran; font-size: 25px; direction: rtl;">
-            منارة خالد بن الوليد لتحفيظ القرءان والسنة النبوية <br>
+        <h1 style="margin: 20px; font-family: quran; font-size: 25px; direction: rtl;">
+            منارة <span id="manaraName"></span> لتحفيظ القرءان والسنة النبوية <br>
+            <span contenteditable="true">
             كشف الحفظ والمراجعة لشهر [اسم الشهر] لسنة 2024
+            </span>
         </h1>
         <h2 id="lord" style="font-family: quran;"></h2>
         <div id="content">
