@@ -55,6 +55,9 @@
         border: 0px;
         width: 100%;
     }
+    .bar td{
+        border: 1px #777 solid;
+    }
     .toolBar select{direction: rtl; color: #fff; border: none; border-bottom: 1px #fff solid; border-radius: 0px;}
     @media print{
         .toolBar{
@@ -71,33 +74,35 @@
                         <select id="lordList" onchange="show_hide_tr(this.value)">
                             <option value="all">الكل</option>
                         </select>
-                        <img height="25px" src="img/print.png" onclick="$('.toolBar').hide();print();$('.toolBar').show()">
+                        <img height="25px" src="img/print.png" onclick="printPage()">
                     </td>
                 </tr>
             </table>
         </div>
-        <h1 style="margin: 20px; font-family: quran; font-size: 25px; direction: rtl;">
-            منارة <span id="manaraName"></span> لتحفيظ القرءان والسنة النبوية <br>
-            <span contenteditable="true">
-            كشف الحفظ والمراجعة لشهر [اسم الشهر] لسنة 2024
-            </span>
-        </h1>
-        <h2 id="lord" style="font-family: quran;"></h2>
-        <div id="content">
-            <table cellspacing="3" style="width: 95%; text-align: center; text-align: right; direction: rtl;">
-                <thead>
-                    <tr style="background: #555; color: #fff; font-weight: bold;">
-                        <td>م</td>
-                        <td>الاسم</td>
-                        <td>الحفظ</td>
-                        <td>المراجعة</td>
-                        <td>اخر تعديل</td>
-                    </tr>
-                </thead>
-                <tbody id="main_table">
-                    
-                </tbody>
-            </table>
+        <div id="contentPage">
+            <h1 style="margin: 20px; font-family: quran; font-size: 25px; direction: rtl;">
+                منارة <span id="manaraName"></span> لتحفيظ القرءان والسنة النبوية <br>
+                <span contenteditable="true">
+                كشف الحفظ والمراجعة لشهر [اسم الشهر] لسنة 2024
+                </span>
+            </h1>
+            <h2 id="lord" style="font-family: quran;"></h2>
+            <div id="content">
+                <table cellspacing="3" style="width: 95%; text-align: center; text-align: right; direction: rtl;">
+                    <thead>
+                        <tr style="background: #555; color: #fff; font-weight: bold;">
+                            <td>م</td>
+                            <td>الاسم</td>
+                            <td>الحفظ</td>
+                            <td>المراجعة</td>
+                            <td>اخر تعديل</td>
+                        </tr>
+                    </thead>
+                    <tbody id="main_table">
+                        
+                    </tbody>
+                </table>
+            </div>
         </div>
         <a id="link" style="display: none;">
 
@@ -119,7 +124,7 @@
         console.log(students[Object.keys(students)[x]])
         const n = Object.keys(students)[x];
         if(dark == 'dark'){dark = ''}else{dark = 'dark'};
-        document.getElementById('main_table').innerHTML += '<tr class="'+dark+'"><td>'+(_no+1)+'</td><td>'+n+'</td><td>'+swer[Number(students[n].swer1)]+'</td><td>'+students[n].date1.split(' ')[0]+'</td><td>'+students[n].swer2+'</td><td>'+students[n].date2.split(' ')[0]+'</td></tr>';
+        document.getElementById('main_table').innerHTML += '<tr class="bar '+dark+'"><td>'+(_no+1)+'</td><td>'+n+'</td><td>'+swer[Number(students[n].swer1)]+'</td><td>'+students[n].date1.split(' ')[0]+'</td><td>'+students[n].swer2+'</td><td>'+students[n].date2.split(' ')[0]+'</td></tr>';
         _no += 1;
     }
     function upload_swer_report(){
@@ -139,9 +144,11 @@
         const urlParams = new URLSearchParams(window.location.search);
         var _code = Number(urlParams.get('code'))/5;
 
-        database.ref(_code+'/students').get().then(snap => {
+        database.ref(_code).get().then(snap => {
         document.getElementById('main_table').innerHTML = '';
-        students = snap.val();
+        var data = snap.val();
+        $('#manaraName').html(data.name);
+        students = data.students;
         sort_by_swer();
         var _no = 1;
         //$('#lord').html(selected_lord);
@@ -167,5 +174,21 @@
         $('.all').hide();
         console.log('.'+c);
         $('.'+c).show();
+    };
+    function printPage(){
+        // إنشاء نافذة جديدة
+        const newWindow = window.open('', '_blank');
+
+        // محتوى الصفحة الجديدة
+        newWindow.document.write($('#contentPage').html());
+
+        // إنهاء تحميل الصفحة
+        newWindow.document.close();
+
+        // بدء عملية الطباعة
+        newWindow.print();
+
+        // إغلاق النافذة بعد الطباعة
+        newWindow.close();
     }
 </script>
