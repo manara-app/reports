@@ -72,7 +72,7 @@
                 <h1 style="margin: 20px; font-family: quran; font-size: 25px; direction: rtl;">
                     <span id="manaraName" style=" font-family: quran;"></span> لتحفيظ القرءان والسنة النبوية <br>
                     <div contenteditable="true" style=" font-family: quran;">
-                    كشف الحفظ والمراجعة لشهر [اسم الشهر] لسنة 2024
+                    كشف الحفظ والمراجعة لشهر ........... لسنة ........
                     </div>
                 </h1>
                 <h2 id="lord" style="font-family: quran;"></h2>
@@ -147,7 +147,6 @@
             const n = Object.keys(students)[x];
             if(!lords.includes(students[n].lord)){
                 lords.push(students[n].lord);
-                document.getElementById('lordList').innerHTML += '<option>'+students[n].lord+'</option>';
             }
             if(dark == 'dark'){dark = ''}else{dark = 'dark'};
             document.getElementById('main_table').innerHTML += '<tr class="all '+dark+'"><td>'+_no+'</td><td>'+n+'</td><td>'+swer[students[n].swer1]+'</td><td>'+students[n].swer2+'</td><td class="date_cell">'+students[n].date2.split(' ')[0]+'</td></tr>';
