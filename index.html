@@ -18,18 +18,6 @@
 </head>
 <body>
     <center>
-        <div>
-            <table class="toolBar">
-                <tr>
-                    <td>
-                        <select id="lordList" onchange="show_hide_tr(this.value)">
-                            <option value="all">الكل</option>
-                        </select>
-                        <img height="25px" src="img/print.png" onclick="printPage()">
-                    </td>
-                </tr>
-            </table>
-        </div>
         <div id="contentPage">
             <style>
                 @font-face {
@@ -83,9 +71,9 @@
             <center>
                 <h1 style="margin: 20px; font-family: quran; font-size: 25px; direction: rtl;">
                     <span id="manaraName" style=" font-family: quran;"></span> لتحفيظ القرءان والسنة النبوية <br>
-                    <span contenteditable="true" style=" font-family: quran;">
+                    <div contenteditable="true" style=" font-family: quran;">
                     كشف الحفظ والمراجعة لشهر [اسم الشهر] لسنة 2024
-                    </span>
+                    </div>
                 </h1>
                 <h2 id="lord" style="font-family: quran;"></h2>
             <div id="content">
@@ -157,13 +145,12 @@
         for (let x = 0; x < Object.keys(students).length; x++) {
             //if(selected_lord == students[Object.keys(students)[x]].lord){
             const n = Object.keys(students)[x];
-            var my_lord = students[n].lord.replaceAll(' ','_');
             if(!lords.includes(students[n].lord)){
                 lords.push(students[n].lord);
-                document.getElementById('lordList').innerHTML += '<option value="'+my_lord+'">'+students[n].lord+'</option>';
+                document.getElementById('lordList').innerHTML += '<option>'+students[n].lord+'</option>';
             }
             if(dark == 'dark'){dark = ''}else{dark = 'dark'};
-            document.getElementById('main_table').innerHTML += '<tr class="all '+dark+' '+my_lord+'"><td>'+_no+'</td><td>'+n+'</td><td>'+swer[students[n].swer1]+'</td><td>'+students[n].swer2+'</td><td class="date_cell">'+students[n].date2.split(' ')[0]+'</td></tr>';
+            document.getElementById('main_table').innerHTML += '<tr class="all '+dark+'"><td>'+_no+'</td><td>'+n+'</td><td>'+swer[students[n].swer1]+'</td><td>'+students[n].swer2+'</td><td class="date_cell">'+students[n].date2.split(' ')[0]+'</td></tr>';
             _no += 1;
             //}
         }
@@ -172,22 +159,4 @@
         });
     }
     all_students();
-    function show_hide_tr(c){
-        $('.all').hide();
-        console.log('.'+c);
-        $('.'+c).show();
-    };
-    function printPage(){
-        // إنشاء نافذة جديدة
-        const newWindow = window.open('', '_blank');
-
-        // محتوى الصفحة الجديدة
-        newWindow.document.write($('#headPage').html()+$('#contentPage').html());
-
-        // بدء عملية الطباعة
-        newWindow.print();
-
-        // إغلاق النافذة بعد الطباعة
-        newWindow.close();
-    }
 </script>
