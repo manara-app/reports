@@ -66,6 +66,13 @@
                         display: none;
                     }
                 }
+                .pageWaterMark{
+                    opacity: 0.3;
+                    width: 100%; height: 100%;
+                    top:0px;left:0px;
+                    text-align: center;
+                    z-index: 3;
+                }
             </style>
             <link rel="stylesheet" href="style.css">
             <center>
@@ -97,11 +104,18 @@
         <a id="link" style="display: none;">
 
         </a>
+        <div class="watermark">
+            <img src="img/logo_icon_modern2.png" style="width: 40px; margin: 0px; filter: brightness(0.5);">
+            بواسطة تطبيق منارة
+        </div>
     </center>
-    <div class="watermark">
-        <img src="img/logo_icon_modern2.png" style="width: 40px; margin: 0px; filter: brightness(0.5);">
-        بواسطة تطبيق منارة
-    </div>
+    <table class="pageWaterMark">
+        <tr>
+            <td>
+                <img src="img/logo_icon_modern2.png" style="filter: brightness(0.3); width: 50%">
+            </td>
+        </tr>
+    </table>
 </body>
 </html>
 
