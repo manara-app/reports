@@ -9,7 +9,10 @@
     <script src="js/firebase.js"></script>
     <script src="jquery.js"></script>
     <script src="js/swer.js"></script>
-
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-qrcode/1.0/jquery.qrcode.min.js"></script>
+    
     <link rel="shortcut icon" href="img/logo_icon_modern.png" type="image/png">
     <meta property="og:title" content="تقارير تطبيق منارة" />
     <meta property="og:description" content="مشاركة مستندات المخزنة سحابيا بواسطة تطبيق منارة" />
@@ -74,8 +77,14 @@
                     z-index: 3;
                     position: fixed;
                 }
+                #qrcode{
+                    position: absolute;
+                    right: 15px;
+                    top: 15px;
+                }
             </style>
             <link rel="stylesheet" href="style.css">
+            <div id="qrcode"></div>
             <center>
                 <h1 style="margin: 20px; font-family: quran; font-size: 25px; direction: rtl;">
                     <span id="manaraName" style=" font-family: quran;"></span> لتحفيظ القرءان والسنة النبوية <br>
@@ -173,4 +182,16 @@
         });
     }
     all_students();
+    //=============QR=================
+    $(document).ready(function() {
+        // الحصول على عنوان URL الخاص بالصفحة الحالية
+        const currentUrl = window.location.href;
+
+        // إنشاء رمز QR
+        $('#qrcode').qrcode({
+            text: currentUrl,
+            width: 128,
+            height: 128
+        });
+    });
 </script>
