@@ -7,10 +7,10 @@
     <script src="https://www.gstatic.com/firebasejs/8.3.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.3.1/firebase-database.js"></script>
     <script src="js/firebase.js"></script>
-    <script src="jquery.js"></script>
+    <script src="jquery.min.js"></script>
     <script src="js/swer.js"></script>
     
-    <script src="qrcode.min.js"></script>
+    <script src="qrcode.js"></script>
     
     <link rel="shortcut icon" href="img/logo_icon_modern.png" type="image/png">
     <meta property="og:title" content="تقارير تطبيق منارة" />
@@ -182,15 +182,9 @@
     }
     all_students();
     //=============QR=================
-    $(document).ready(function() {
-        // الحصول على عنوان URL الخاص بالصفحة الحالية
-        const currentUrl = window.location.href;
-
-        // إنشاء رمز QR
-        $('#qrcode').qrcode({
-            text: currentUrl,
-            width: 128,
-            height: 128
-        });
+    var qrcode = new QRCode(document.getElementById("qrcode"), {
+    	width : 100,
+    	height : 100
     });
+    qrcode.makeCode(window.location.href);
 </script>
